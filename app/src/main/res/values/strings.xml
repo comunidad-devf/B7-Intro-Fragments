@@ -3,4 +3,10 @@
     <string name="dragon_blanco">Dragon blanco de ojos azules</string>
     <string name="mago_oscuro">Mago oscuro</string>
     <string name="dragon_negro">Dragon negro de ojos rojos</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="imagen_detalle">Imagen detalle</string>
+    <string name="nuevo_string">String de prueba</string>
+    <string name="title_activity_next">NextActivity</string>
 </resources>

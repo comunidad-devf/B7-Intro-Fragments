@@ -1,18 +1,35 @@
 package mx.devf.introfragments;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import mx.devf.introfragments.fragments.DetailFragment;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "Main Activity";
+    private DetailFragment mFragment;
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.w(TAG, "onCreate Activity");
+        mFragment = new DetailFragment();
+        mButton = (Button) findViewById(R.id.btn_next_activity);
+        mButton.setOnClickListener(this);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment_container, mFragment);
+        transaction.commit();
     }
 
     @Override
@@ -43,5 +60,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.w(TAG, "onDestroy Activity");
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == mButton.getId()){
+            Intent intent = new Intent(MainActivity.this, NextActivity.class);
+            startActivity(intent);
+        }
     }
 }
