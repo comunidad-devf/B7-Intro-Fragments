@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import mx.devf.introfragments.R;
+import mx.devf.introfragments.model.YuGiOh;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,9 +21,23 @@ import mx.devf.introfragments.R;
 public class DetailFragment extends Fragment {
 
     public static final String TAG = "Detail Fragment:";
+    public static final String KEY_NAME = "name";
+    public static final String KEY_IMAGE = "image_id";
+
+    private ImageView mImage;
+    private TextView  mName;
 
     public DetailFragment() {
         // Required empty public constructor
+    }
+
+    public static DetailFragment newInstance(String name, int imageId) {
+        Bundle args = new Bundle();
+        args.putInt(KEY_IMAGE, imageId);
+        args.putString(KEY_NAME, name);
+        DetailFragment fragment = new DetailFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -40,6 +57,11 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_detail, container, false);
         Log.e(TAG, "onCreateView DYNAMIC");
+        mImage = (ImageView) v.findViewById(R.id.img_detail);
+        mName = (TextView) v.findViewById(R.id.txt_nombre);
+
+        mImage.setImageResource(getArguments().getInt(KEY_IMAGE));
+        mName.setText(getArguments().getString(KEY_NAME));
         return v;
     }
 
@@ -86,4 +108,11 @@ public class DetailFragment extends Fragment {
     }
 
 
+    public void updateView(YuGiOh card) {
+        Bundle args = getArguments();
+        args.putString(KEY_NAME, card.getName());
+        args.putInt(KEY_IMAGE, card.getmImageId());
+        mImage.setImageResource(card.getmImageId());
+        mName.setText(card.getName());
+    }
 }
